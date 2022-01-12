@@ -2,17 +2,16 @@ const { response } = require('express');
 const express = require('express');
 const router = express.Router();
 const booksHelper = require('../helper/books')
-let {addBook,books,editBook}=booksHelper;
+// let {addBook,books,editBook}=booksHelper;
 
 
-router.get('/',books)
-// @add new books 
-// @body Titile Author Language Description
-// @no return 
-router.post('/add_book',addBook)
+router.get('/',booksHelper.books)
 
-router.post('/editBook',editBook)
+router.post('/add_book',booksHelper.addBook)
 
+router.post('/editBook',booksHelper.bookDetails)
+
+router.post('/edited_book',booksHelper.editBook)
 
 
 module.exports = router;

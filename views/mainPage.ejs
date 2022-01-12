@@ -25,16 +25,16 @@
                 <div class="modal-body">
                     <form method="post" action="/add_book" >
                         <div class="mb-3">
-                          <input type="text" class="form-control" id="exampleInputEmail1" name="Title" placeholder="Book Title" aria-describedby="emailHelp">
+                          <input type="text" class="form-control" id="" name="Title" placeholder="Book Title" aria-describedby="emailHelp">
                         </div>
                         <div class="mb-3">
-                            <input type="text" class="form-control" id="exampleInputEmail1" name="Author" placeholder="Author" aria-describedby="emailHelp">
+                            <input type="text" class="form-control" id="" name="Author" placeholder="Author" aria-describedby="emailHelp">
                           </div>
                           <div class="mb-3">
-                            <input type="text" class="form-control" id="exampleInputEmail1" name="Language" placeholder="Language" aria-describedby="emailHelp">
+                            <input type="text" class="form-control" id="" name="Language" placeholder="Language" aria-describedby="emailHelp">
                           </div>
                           <div class="mb-3">
-                            <input type="text" class="form-control" id="exampleInputEmail1" name="Description" placeholder="Description" aria-describedby="emailHelp">
+                            <input type="text" class="form-control" id="" name="Description" placeholder="Description" aria-describedby="emailHelp">
                           </div>
                         
                        
@@ -44,8 +44,33 @@
             </div>
         </div>
     </div>
+   
     <h1>Hello, world!</h1>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Book</button>
+    <div id="editForm" class="modal-body">
+        <form method="post" action="/edited_book" >
+            <div class="mb-3">
+              <input type="text" class="form-control" id="TitleName" name="Title" placeholder="Book Title" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="AuthorName" name="Author" placeholder="Author" aria-describedby="emailHelp">
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control" id="Languages" name="Language" placeholder="Language" aria-describedby="emailHelp">
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control" id="Descriptions" name="Description" placeholder="Description" aria-describedby="emailHelp">
+              </div>
+              <div class="mb-3">
+                <input type="text" name="id" id="bookId">
+                
+              </div>
+            
+           
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+    </div>
+   
     <% if(books){ %>
         <table class="table">
             <thead>
@@ -68,15 +93,7 @@
                         <td><%= books[i].Language %></td>
                         <td><%= books[i].Description %></td>
                         <td>
-                        
-                            <form method="post" action="/editBook">
-                                <input type="text"  name="id" value="<%= books[i]._id %>" id="">
-                                <button type="submit">edit</button>
-                            </form>
                             <button type="submit" onclick="edit('<%= books[i]._id %>')"  class="btn btn-secondary">Edit</button>
-                        </td>
-                        <td>
-                            <a href="/aaa">aaa</a>
                         </td>
                         <td>
                             <button type="button"  class="btn btn-secondary">Delete</button>
@@ -112,14 +129,26 @@
     -->
 
     <script>
+        document.getElementById('editForm').style.display='none'
         function edit(id){
-            alert(id)
+          document.getElementById('bookId').value = id
             $.ajax({
                 url:'/editBook',
                 data:{id:id},
                 method:'post',
                 success:(response)=>{
-                    alert(response)
+                  console.log(response.bookDetails._id);
+                    if(response.status){
+                        document.getElementById('editForm').style.display='block'
+                        document.getElementById('TitleName').value = response.bookDetails.Title
+                        document.getElementById('AuthorName').value = response.bookDetails.Author
+                        document.getElementById('Languages').value = response.bookDetails.Language
+                        document.getElementById('Description').value = response.bookDetails.Description
+                        
+                        
+                    }else{
+                      alert('try pls')
+                    }
                 }
             })
         }
