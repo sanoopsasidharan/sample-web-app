@@ -13,5 +13,11 @@ router.post('/editBook',booksHelper.bookDetails)
 
 router.post('/edited_book',booksHelper.editBook)
 
+router.post('/searchBooks',booksHelper.search)
+
+router.delete('/delete',booksHelper.deleteBook)
+
+router.get('/books',booksHelper.particularAuthorBooks)
+
 
 module.exports = router;

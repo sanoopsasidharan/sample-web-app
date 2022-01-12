@@ -46,6 +46,12 @@
     </div>
    
     <h1>Hello, world!</h1>
+    <div>
+      <form action="/searchBooks" method="post">
+        <input type="text" name="bookName" id="">
+        <button type="submit">search</button>
+      </form>
+    </div>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Book</button>
     <div id="editForm" class="modal-body">
         <form method="post" action="/edited_book" >
